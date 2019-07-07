@@ -25,6 +25,7 @@ locate_template('/core/classes/walkers/class-walker-nav-menu-top.php', TRUE);
 locate_template('/core/classes/widgets/my_widget.php', TRUE);
 locate_template('/core/classes/widgets/content_widget.php', TRUE);
 locate_template('/core/classes/class-tgm-plugin-activation.php', TRUE);
+locate_template('/core/classes/class-fbtool.php', TRUE);
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,13 @@ locate_template('/core/settings/wp/wp-admin.php', TRUE);
 locate_template('/core/settings/wp/wp-api.php', TRUE);
 locate_template('/core/settings/wp/wp-taxonomy.php', TRUE);
 locate_template('/core/settings/wp/wp-shortcode.php', TRUE);
+
+/*
+|--------------------------------------------------------------------------
+| LOAD FACEBOOK SETTINGS
+|-------------------------------------------------------------------------- 
+*/
+locate_template('/core/settings/fb/fb-tool.php', TRUE);
 
 /*
 |--------------------------------------------------------------------------
