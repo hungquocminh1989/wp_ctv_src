@@ -32,6 +32,7 @@ locate_template('/core/classes/class-fbtool.php', TRUE);
 | LOAD SETTINGS
 |-------------------------------------------------------------------------- 
 */
+locate_template('/core/settings/wp/wp-create-table.php', TRUE);
 locate_template('/core/settings/wp/wp-ajax-request.php', TRUE);
 locate_template('/core/settings/wp/wp-ajax.php', TRUE);
 locate_template('/core/settings/wp/wp-client-side-script.php', TRUE);

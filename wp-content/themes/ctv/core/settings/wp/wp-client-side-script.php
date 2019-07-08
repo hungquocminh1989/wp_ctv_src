@@ -13,9 +13,12 @@ function repoLoadEnqueueScripts(){
 }
 
 function repoLoadTemplate(){
-	wp_enqueue_style( 'css1' , TEMPLATE_URL . "/public/css/bootstrap.css");
+	wp_enqueue_style( 'bootstrap_css' , TEMPLATE_URL . "/public/css/bootstrap.css");
+	wp_enqueue_style( 'bootstrap-dialog_css' , TEMPLATE_URL . "/public/bootstrap3-dialog/css/bootstrap-dialog.css");
 	
-	wp_enqueue_script('js1' , TEMPLATE_URL . "/public/js/jquery-2.2.3.min.js",NULL,NULL,TRUE);
+	wp_enqueue_script('jquery_js' , TEMPLATE_URL . "/public/js/jquery-1.10.2.js",NULL,NULL,TRUE);
+	wp_enqueue_script('bootstrap_js' , TEMPLATE_URL . "/public/js/bootstrap.js",NULL,NULL,TRUE);
+	wp_enqueue_script('bootstrap-dialog_js' , TEMPLATE_URL . "/public/bootstrap3-dialog/js/bootstrap-dialog.js",NULL,NULL,TRUE);
 }
 
 function repoLoadTagScript() {

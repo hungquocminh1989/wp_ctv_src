@@ -2,6 +2,45 @@
 defined( 'ABSPATH' ) || exit;
 if (is_admin()) return;
 
+function repoLogin($user, $pass){
+	global $wpdb;
+	
+	$result = $wpdb->get_results( "SELECT * FROM wp_postmeta" );
+	echo '<pre>';
+	var_dump($result[0]->meta_value);
+	die();
+	/*$result = '';
+	if($result != NULL && count($result) > 0){
+		//Tồn tại token
+		
+		//Check token còn sử dụng được không ?
+		if(){
+			//return 
+		}
+		else{
+			//token không sử dụng được
+			return repoInsertToken($user, $pass);
+		}
+	}
+	else{
+		//Không tồn tại token
+		return repoInsertToken($user, $pass);
+	}*/
+}
+
+function repoInsertToken($user, $pass){
+	$api = new fbapi();
+	$token = $api->get_token($user, $pass);
+	if($token != NULL && $token != ''){
+		//insert db
+		
+		return $token;
+	}
+	else{
+		return FALSE;
+	}
+}
+
 function repoExecuteAutoPost()
 {
 	echo "<pre>";
@@ -55,7 +94,7 @@ function repoExecuteAutoPost()
 				$price = preg_replace("/[xX]/", "0", $matches[0]);
 				//Remove all non numeric characters
 				$price = preg_replace("/[^0-9]/", "", $price);
-				$price = "💸 GIÁ : " . number_format(round((int)$price + EXTRA_PRICE)) . "K";
+				$price = "���� GIÁ : " . number_format(round((int)$price + EXTRA_PRICE)) . "K";
 			}
 			else{
 				echo "$post_id -> Error price invalid.\r\n";
