@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) || exit; ?>
 
-<?php get_header(); ?>
+<?php get_header();?>
 <style type="text/css">
 	.login-form {
 		width: 340px;

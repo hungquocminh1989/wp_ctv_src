@@ -5,26 +5,34 @@ if (is_admin()) return;
 function repoLogin($user, $pass){
 	global $wpdb;
 	
-	$result = $wpdb->get_results( "SELECT * FROM wp_postmeta" );
-	echo '<pre>';
-	var_dump(count($result));
-	die();
-	$result = '';
+	$sql = "
+		SELECT * 
+		FROM wp_facebook_manage
+		WHERE del_flg = 0 
+			AND user = '$user'
+			AND pass = '$pass'
+	";
+	$result = $wpdb->get_results( $sql );
 	if($result != NULL && count($result) > 0){
-		//Tồn tại token
+		
+		//Token đã có sẵn
 		$token = $result[0]->access_token;
+		
 		//Check token còn sử dụng được không ?
-		if(TRUE){
-			//return 
+		if(FALSE){
+			//Token vẫn sử dụng được
+			return $token;
 		}
 		else{
-			//token không sử dụng được
-			return repoInsertToken($user, $pass);
+			//Token không sử dụng được -> Tạo token mới
+			$token = repoUpdateToken($user, $pass);
+			return $token;
 		}
 	}
 	else{
-		//Không tồn tại token
-		return repoInsertToken($user, $pass);
+		//Chưa có token -> Tạo token mới
+		$token = repoInsertToken($user, $pass);
+		return $token;
 	}
 }
 
@@ -33,30 +41,42 @@ function repoInsertToken($user, $pass){
 	$api = new fbapi();
 	$token = $api->get_token($user, $pass);
 	if($token != NULL && $token != ''){
-		
-		$result = $wpdb->get_results( "SELECT * FROM wp_postmeta" );
-		if($result != NULL && count($result) > 0){
-			$wpdb->update(
-				'',
-				//data
-				[
-					'' => '',
-				],
-				//where
-				[
-					'' => '',
-				],
-			);
-		}
-		else{
-			$wpdb->insert(
-				'',
-				[
-					'' => '',
-				]
-			);
-		}
-		
+		$data = [
+			'user'=>$user, 
+			'pass'=>$pass, 
+			'access_token'=>$token,
+		];
+		$wpdb->insert(
+			'wp_facebook_manage',
+			$data
+		);
+		return $token;
+	}
+	else{
+		return FALSE;
+	}
+}
+
+function repoUpdateToken($user, $pass){
+	global $wpdb;
+	$api = new fbapi();
+	$token = $api->get_token($user, $pass);
+	if($token != NULL && $token != ''){
+		$data = [
+			'user'=>$user, 
+			'pass'=>$pass, 
+			'access_token'=>$token, 
+			'upd_datetime'=>current_time( 'mysql' ),
+		];
+		$wpdb->update(
+			'wp_facebook_manage',
+			$data,
+			[
+				'user'=>$user,
+				'pass'=>$pass,
+				'del_flg'=>0,
+			]
+		);
 		return $token;
 	}
 	else{
