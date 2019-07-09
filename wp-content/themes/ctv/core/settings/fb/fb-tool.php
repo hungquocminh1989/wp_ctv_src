@@ -7,14 +7,14 @@ function repoLogin($user, $pass){
 	
 	$result = $wpdb->get_results( "SELECT * FROM wp_postmeta" );
 	echo '<pre>';
-	var_dump($result[0]->meta_value);
+	var_dump(count($result));
 	die();
-	/*$result = '';
+	$result = '';
 	if($result != NULL && count($result) > 0){
 		//Tồn tại token
-		
+		$token = $result[0]->access_token;
 		//Check token còn sử dụng được không ?
-		if(){
+		if(TRUE){
 			//return 
 		}
 		else{
@@ -25,14 +25,37 @@ function repoLogin($user, $pass){
 	else{
 		//Không tồn tại token
 		return repoInsertToken($user, $pass);
-	}*/
+	}
 }
 
 function repoInsertToken($user, $pass){
+	global $wpdb;
 	$api = new fbapi();
 	$token = $api->get_token($user, $pass);
 	if($token != NULL && $token != ''){
-		//insert db
+		
+		$result = $wpdb->get_results( "SELECT * FROM wp_postmeta" );
+		if($result != NULL && count($result) > 0){
+			$wpdb->update(
+				'',
+				//data
+				[
+					'' => '',
+				],
+				//where
+				[
+					'' => '',
+				],
+			);
+		}
+		else{
+			$wpdb->insert(
+				'',
+				[
+					'' => '',
+				]
+			);
+		}
 		
 		return $token;
 	}
