@@ -74,6 +74,16 @@ function repoLoadPluginFromStore() {
 			'slug' => 'simply-show-hooks',
 			'required' => TRUE,
 		],
+		[
+			'name' => 'ProfilePress',
+			'slug' => 'ppress',
+			'required' => TRUE,
+		],
+		[
+			'name' => 'Custom Login URL',
+			'slug' => 'custom-login-url',
+			'required' => TRUE,
+		],
 	];
 
 	// Thiet lap TGM

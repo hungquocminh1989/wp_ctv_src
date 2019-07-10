@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 if (is_admin()) return;
 
-function repoLogin($user, $pass){
+function repoAddToken($user, $pass){
 	global $wpdb;
 	
 	$sql = "
