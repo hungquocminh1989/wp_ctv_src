@@ -47,6 +47,7 @@ locate_template('/core/settings/wp/wp-widgets.php', TRUE);
 locate_template('/core/settings/wp/wp-post-type.php', TRUE);
 locate_template('/core/settings/wp/wp-plugins.php', TRUE);
 locate_template('/core/settings/wp/wp-admin.php', TRUE);
+locate_template('/core/settings/wp/wp-admin-url.php', TRUE);
 locate_template('/core/settings/wp/wp-api.php', TRUE);
 locate_template('/core/settings/wp/wp-taxonomy.php', TRUE);
 locate_template('/core/settings/wp/wp-shortcode.php', TRUE);

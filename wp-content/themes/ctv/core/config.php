@@ -6,6 +6,8 @@ defined( 'ABSPATH' ) || exit;
 | CREATE DEFINE
 |-------------------------------------------------------------------------- 
 */
+define('ADMIN_CUSTOME_URL', 'ctv-manage');
+define('LOGIN_CUSTOME_URL', 'ctv-login');
 define('TEMPLATE_URL', get_template_directory_uri());
 define('THEME_TEXT_START', '[ ');
 define('THEME_TEXT_END', ' ]');

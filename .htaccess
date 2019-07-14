@@ -6,7 +6,12 @@ RewriteBase /wp_ctv_src/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /wp_ctv_src/index.php [L]
+# RewriteRule . /wp_ctv_src/index.php [L]
 </IfModule>
 
 # END WordPress
+
+# Custome Admin URL
+# https://huuthuan.net/thu-thuat-thay-doi-thu-muc-wp-admin-khong-can-plugin.html
+RewriteRule ^ctv-manage/(.*) wp-admin/$1?%{QUERY_STRING} [L]
+

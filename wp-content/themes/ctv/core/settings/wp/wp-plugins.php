@@ -84,6 +84,11 @@ function repoLoadPluginFromStore() {
 			'slug' => 'custom-login-url',
 			'required' => TRUE,
 		],
+		[
+			'name' => 'Protect Your Admin',
+			'slug' => 'protect-wp-admin',
+			'required' => TRUE,
+		],
 	];
 
 	// Thiet lap TGM
