@@ -29,13 +29,20 @@ locate_template('/core/classes/class-fbtool.php', TRUE);
 
 /*
 |--------------------------------------------------------------------------
+| LOAD CLIENT SIDE SCRIPT
+|-------------------------------------------------------------------------- 
+*/
+locate_template('/core/settings/wp/wp-admin-script.php', TRUE);
+locate_template('/core/settings/wp/wp-front-script.php', TRUE);
+
+/*
+|--------------------------------------------------------------------------
 | LOAD SETTINGS
 |-------------------------------------------------------------------------- 
 */
 locate_template('/core/settings/wp/wp-create-table.php', TRUE);
 locate_template('/core/settings/wp/wp-ajax-request.php', TRUE);
 locate_template('/core/settings/wp/wp-ajax.php', TRUE);
-locate_template('/core/settings/wp/wp-client-side-script.php', TRUE);
 locate_template('/core/settings/wp/wp-default-posts.php', TRUE);
 locate_template('/core/settings/wp/wp-default-pages.php', TRUE);
 locate_template('/core/settings/wp/wp-customize.php', TRUE);
@@ -51,6 +58,22 @@ locate_template('/core/settings/wp/wp-admin-url.php', TRUE);
 locate_template('/core/settings/wp/wp-api.php', TRUE);
 locate_template('/core/settings/wp/wp-taxonomy.php', TRUE);
 locate_template('/core/settings/wp/wp-shortcode.php', TRUE);
+
+/*
+|--------------------------------------------------------------------------
+| LOAD WOOCOMMERCE SETTINGS
+|-------------------------------------------------------------------------- 
+*/
+locate_template('/core/settings/wc/wc-admin-product-option.php', TRUE);
+
+/*
+|--------------------------------------------------------------------------
+| LOAD ADVANCED CUSTOM FIELDS SETTINGS
+|-------------------------------------------------------------------------- 
+*/
+locate_template('/core/settings/acf/acf-generate.php', TRUE);
+locate_template('/core/settings/acf/acf-function.php', TRUE);
+locate_template('/core/settings/acf/acf-hook.php', TRUE);
 
 /*
 |--------------------------------------------------------------------------

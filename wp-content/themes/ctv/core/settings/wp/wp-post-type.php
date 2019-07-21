@@ -26,6 +26,19 @@ function repoCreatePostType() {
             ]
         ]
     );
+    
+    register_post_type( 'Token',
+        [
+        'label' => 'Facebook Token',
+        'public' => true,
+        'has_archive' => true,
+        'menu_position' => 5,
+        'supports' => 
+            [
+                'title',
+            ]
+        ]
+    );
 	
 }
 
