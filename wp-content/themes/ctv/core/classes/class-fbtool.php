@@ -71,6 +71,11 @@ if (!class_exists( 'Sample_Widget')) {
 			return $d;
 		}
 		
+		public function checkToken($token){
+			
+			return TRUE;
+		}
+		
 		public function getGroupPost($group_id, $limit, $token){
 			//Get post from group
 			$url = "https://graph.facebook.com/v2.10/$group_id/feed";
