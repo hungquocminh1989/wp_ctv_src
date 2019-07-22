@@ -41,7 +41,6 @@ locate_template('/core/settings/wp/wp-front-script.php', TRUE);
 |-------------------------------------------------------------------------- 
 */
 locate_template('/core/settings/wp/wp-create-table.php', TRUE);
-locate_template('/core/settings/wp/wp-ajax-request.php', TRUE);
 locate_template('/core/settings/wp/wp-ajax.php', TRUE);
 locate_template('/core/settings/wp/wp-default-posts.php', TRUE);
 locate_template('/core/settings/wp/wp-default-pages.php', TRUE);
