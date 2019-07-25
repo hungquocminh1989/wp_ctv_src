@@ -333,7 +333,7 @@
         updateZIndex: function () {
             if (this.isOpened()) {
                 var zIndexBackdrop = 1040;
-                var zIndexModal = 1050;
+                var zIndexModal = 999999999999;/*Change by WP*/
                 var dialogCount = 0;
                 $.each(BootstrapDialog.dialogs, function (dialogId, dialogInstance) {
                     if (dialogInstance.isRealized() && dialogInstance.isOpened()) {

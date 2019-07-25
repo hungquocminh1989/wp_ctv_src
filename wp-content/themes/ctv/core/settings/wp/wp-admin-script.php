@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if (is_admin()){
-	add_action('admin_enqueue_scripts', 'repo_load_admin_script');
+	add_action('admin_enqueue_scripts', 'repo_load_admin_script',1);
 	add_action('shutdown', 'repo_load_core_ajax');
 	
 	// Update CSS within in Admin
