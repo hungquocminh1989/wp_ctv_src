@@ -5,6 +5,15 @@
      * Copied from font-awesome: http://fontawesome.io/
      **/
   /** End of icon animation **/
+	z-index: 99999999;
+	position: fixed;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(220,220,220, 0.8);
 }
 .bootstrap-dialog .modal-header {
   border-top-left-radius: 4px;
