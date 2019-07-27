@@ -1,61 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit; ?>
-<style type="text/css">
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0)
-  }
-  100% {
-    transform: rotate(360deg)
-  }
-}
-.lds-ring > div{
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  border-radius: 50%;
-  border: 5px solid #9edafe;
-  border-color: #9edafe transparent transparent transparent;
-  animation: lds-ring 1.5s cubic-bezier(0.5,0,0.5,1) infinite;
-}
-.lds-ring > div:nth-child(2) {
-  animation-delay: .195s;
-}
-.lds-ring > div:nth-child(3) {
-  animation-delay: .39s;
-}
-.lds-ring > div:nth-child(4) {
-  animation-delay: .585s;
-}
-.loading_screen
-{   
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    z-index: 99999;
-    left: 0;
-    top: 0;
-    background-color: rgb(220,220,220);
-    background-color: rgba(220,220,220, 0.8);
-    overflow-x: hidden;
-    overflow-y: hidden;
-    display:none;
-}
-.loading_dialog{
-	min-width: 10px;
-	min-height: 10px;
-	max-width: 100px;
-	max-height: 100px;
-	/*background-color: blue;*/
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-}
-</style>
+
 <script type="text/javascript">
 	function System() {
         this.initialize.apply(this, arguments);
@@ -204,7 +148,7 @@
             closeByBackdrop: false,
             closeByKeyboard: false,
 			buttons: [{
-                label: "{{trans('common.popup_button_close')}}",
+                label: "Đóng",
                 action: function(dialog) {
                 	dialog.close();
                 	if (ok_func) {
@@ -218,7 +162,7 @@
     System.message_success = function (msg,ok_func) {
     	//http://nakupanda.github.io/bootstrap3-dialog/
 		BootstrapDialog.show({
-            title: "{{trans('common.popup_title_success')}}",
+            title: "Thông Báo",
             message: msg,
             nl2br : false,
 			type: BootstrapDialog.TYPE_SUCCESS,
@@ -226,7 +170,7 @@
             closeByBackdrop: false,
             closeByKeyboard: false,
             buttons: [{
-                label: "{{trans('common.popup_button_close')}}",
+                label: "Đóng",
                 action: function(dialog) {
                 	dialog.close();
                 	if (ok_func) {
@@ -240,7 +184,7 @@
     System.message_confirm = function (msg, ok_func, cancel_func) {
     	//http://nakupanda.github.io/bootstrap3-dialog/
 		BootstrapDialog.show({
-            title: "{{trans('common.popup_title_confirm')}}",
+            title: "Xác Nhận",
             message: msg,
             nl2br : false,
 			type: BootstrapDialog.TYPE_WARNING,
@@ -248,7 +192,7 @@
             closeByBackdrop: false,
             closeByKeyboard: false,
             buttons: [{
-                label: "{{trans('common.popup_button_ok')}}",
+                label: "OK",
                 action: function(dialog) {
                 	dialog.close();
                 	if (ok_func) {
@@ -256,7 +200,7 @@
 					}
                 }
             }, {
-                label: "{{trans('common.popup_button_close')}}",
+                label: "Đóng",
                 action: function(dialog) {
                 	dialog.close();
                 	if (cancel_func) {
@@ -270,7 +214,7 @@
     System.message_error = function (msg,ok_func) {
     	//http://nakupanda.github.io/bootstrap3-dialog/
     	BootstrapDialog.show({
-            title: "{{trans('common.popup_title_error')}}",
+            title: "Lỗi",
             message: msg,
             nl2br : false,
 			type: BootstrapDialog.TYPE_DANGER,
@@ -278,7 +222,7 @@
             closeByBackdrop: false,
             closeByKeyboard: false,
             buttons: [{
-                label: "{{trans('common.popup_button_close')}}",
+                label: "Đóng",
                 action: function(dialog) {
                 	dialog.close();
                 	if (ok_func) {
@@ -318,36 +262,3 @@
     };
     
 </script>
-
-<div id="loading_screen" class="loading_screen">
-    <div class="loading_dialog center">
-        <!--Preloader-->
-        <div class="lds-css">
-            <div class="lds-ring" style="width:100%;height:100%">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- http://nakupanda.github.io/bootstrap3-dialog/ -->
-<div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body…</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
