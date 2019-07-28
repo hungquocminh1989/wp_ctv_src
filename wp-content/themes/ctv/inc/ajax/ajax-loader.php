@@ -34,7 +34,7 @@
     height: 100%;
     width: 100%;
     position: fixed;
-    z-index: 99999;
+    z-index: 99999999999999;
     left: 0;
     top: 0;
     background-color: rgb(220,220,220);

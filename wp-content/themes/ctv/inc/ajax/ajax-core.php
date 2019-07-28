@@ -249,9 +249,9 @@
     });*/
     
     //Lock screen when submit);
-    jQuery(document).on('submit', 'form', function() {
+    /*jQuery(document).on('submit', 'form', function() {
     	System.loading(true);
-    });
+    });*/
     
     System.loading = function (flag) {
     	if (flag) {

@@ -10,7 +10,7 @@
 	        	System.message_confirm('Thực xử lý token ?',function(){
 	        		var ajax = new System();
 					ajax.done_func = function(json) {
-						if(json.status == true){
+						if(json.success == true){
 							System.message_success('Lấy token thành công!',function(){
 								$('#acf-field_5d3343300d412').val(json.data);
 							});
