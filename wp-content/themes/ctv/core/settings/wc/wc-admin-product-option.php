@@ -18,10 +18,10 @@ function wc_cost_save_product( $product_id ) {
     // If this is a auto save do nothing, we only save when update button is clicked
 	/*if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 		return;*/
-	if ( isset( $_POST['cost_price'] ) ) {
-		if ( is_numeric( $_POST['cost_price'] ) )
-			update_post_meta( $product_id, 'cost_price', $_POST['cost_price'] );
-	} else delete_post_meta( $product_id, 'cost_price' );
+	if ( isset( $_POST['ctv_price'] ) ) {
+		if ( is_numeric( $_POST['ctv_price'] ) )
+			update_post_meta( $product_id, 'ctv_price', $_POST['ctv_price'] );
+	} else delete_post_meta( $product_id, 'ctv_price' );
 	
 	if ( isset( $_POST['org_price'] ) ) {
 		if ( is_numeric( $_POST['org_price'] ) )

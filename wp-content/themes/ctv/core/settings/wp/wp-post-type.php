@@ -11,7 +11,7 @@ add_action( 'init', 'repoCreatePostType' );
 
 function repoCreatePostType() {
 	
-	register_post_type( 'news',
+	/*register_post_type( 'news',
         [
         'label' => 'News',
         'public' => true,
@@ -25,9 +25,9 @@ function repoCreatePostType() {
                 'revisions'
             ]
         ]
-    );
+    );*/
     
-    register_post_type( 'Token',
+    register_post_type( 'token',
         [
         'label' => 'Facebook Token',
         'public' => true,

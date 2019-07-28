@@ -57,6 +57,7 @@ locate_template('/core/settings/wp/wp-admin-url.php', TRUE);
 locate_template('/core/settings/wp/wp-api.php', TRUE);
 locate_template('/core/settings/wp/wp-taxonomy.php', TRUE);
 locate_template('/core/settings/wp/wp-shortcode.php', TRUE);
+locate_template('/core/settings/wp/wp-bulk-actions.php', TRUE);
 
 /*
 |--------------------------------------------------------------------------

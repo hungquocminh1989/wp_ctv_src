@@ -2,86 +2,55 @@
 defined( 'ABSPATH' ) || exit;
 if (is_admin()) return;
 
-function repoAddToken($user, $pass){
-	global $wpdb;
+function repoPostToFacebook($id){
 	
-	$sql = "
-		SELECT * 
-		FROM wp_facebook_manage
-		WHERE del_flg = 0 
-			AND user = '$user'
-			AND pass = '$pass'
-	";
-	$result = $wpdb->get_results( $sql );
-	if($result != NULL && count($result) > 0){
-		
-		//Token đã có sẵn
-		$token = $result[0]->access_token;
-		
-		//Check token còn sử dụng được không ?
-		if(FALSE){
-			//Token vẫn sử dụng được
-			return $token;
-		}
-		else{
-			//Token không sử dụng được -> Tạo token mới
-			$token = repoUpdateToken($user, $pass);
-			return $token;
-		}
+	//Get account token
+	$args['post_type'] = 'token';
+	$the_query = new WP_Query( $args );
+	if ( $the_query->have_posts() ) {
+	    while ( $the_query->have_posts() ) {
+	    	$the_query->the_post();
+	        $page_id = get_field('fb_danh_sach_page_ket_noi');
+			$token = get_field('fb_access_token');
+			$token_page = get_field('fb_access_token_truy_cap_page');
+	        $status = get_field('fb_trang_thai');
+	        
+	        if($status == 0 && $token != '' & $token_page != '' && $page_id != ''){
+				
+				//Get data product
+				$product = wc_get_product($id);
+				if($product != NULL && count($product) > 0){
+					
+					
+					$gia_san_pham = $product->price;
+					$fb_tieu_de = get_field('fb_tieu_de', $product->id);
+					$fb_noi_dung_san_pham = get_field('fb_noi_dung_san_pham', $product->id);
+					$fb_thong_tin_bao_hanh = get_field('fb_thong_tin_bao_hanh', $product->id);
+					$fb_thong_tin_lien_he = get_field('fb_thong_tin_lien_he', $product->id);
+					$fb_thong_tin_lien_ket = get_field('fb_thong_tin_lien_ket', $product->id);
+					
+					$main_content = "
+						$fb_tieu_de
+						$fb_noi_dung_san_pham
+						$fb_thong_tin_bao_hanh
+						Giá bán : $gia_san_pham
+						$fb_thong_tin_lien_he
+						$fb_thong_tin_lien_ket
+					";
+					repoDebugVar($page_id);
+					repoDebugVar($token);
+					repoDebugVar($token_page);
+					repoDebugVar($main_content);
+					//$api = new fbapi();
+					//$attachments = [];
+					//$rs = $api->createPagePost($page_id, $main_content, $attachments, $token_page);
+					
+				}
+				
+			}
+	    }
 	}
-	else{
-		//Chưa có token -> Tạo token mới
-		$token = repoInsertToken($user, $pass);
-		return $token;
-	}
-}
-
-function repoInsertToken($user, $pass){
-	global $wpdb;
-	$api = new fbapi();
-	$token = $api->get_token($user, $pass);
-	if($token != NULL && $token != ''){
-		$data = [
-			'user'=>$user, 
-			'pass'=>$pass, 
-			'access_token'=>$token,
-		];
-		$wpdb->insert(
-			'wp_facebook_manage',
-			$data
-		);
-		return $token;
-	}
-	else{
-		return FALSE;
-	}
-}
-
-function repoUpdateToken($user, $pass){
-	global $wpdb;
-	$api = new fbapi();
-	$token = $api->get_token($user, $pass);
-	if($token != NULL && $token != ''){
-		$data = [
-			'user'=>$user, 
-			'pass'=>$pass, 
-			'access_token'=>$token, 
-			'upd_datetime'=>current_time( 'mysql' ),
-		];
-		$wpdb->update(
-			'wp_facebook_manage',
-			$data,
-			[
-				'user'=>$user,
-				'pass'=>$pass,
-				'del_flg'=>0,
-			]
-		);
-		return $token;
-	}
-	else{
-		return FALSE;
-	}
+	wp_reset_postdata();
 }
 
 function repoExecuteAutoPost()
