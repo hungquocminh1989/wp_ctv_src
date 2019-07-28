@@ -6,21 +6,22 @@ function repoPostToFacebook($id){
 	
 	//Get account token
 	$args['post_type'] = 'token';
+	$args['meta_key'] = 'fb_trang_thai';
+	$args['meta_value'] = 0;
 	$the_query = new WP_Query( $args );
 	if ( $the_query->have_posts() ) {
 	    while ( $the_query->have_posts() ) {
 	    	$the_query->the_post();
-	        $page_id = get_field('fb_danh_sach_page_ket_noi');
+	        $page_ids = get_field('fb_danh_sach_page_ket_noi');
+	        $arr_page_id = explode("\r\n", trim($page_ids));
 			$token = get_field('fb_access_token');
 			$token_page = get_field('fb_access_token_truy_cap_page');
-	        $status = get_field('fb_trang_thai');
-	        
-	        if($status == 0 && $token != '' & $token_page != '' && $page_id != ''){
+			
+	        if($token != '' & $token_page != '' && count($arr_page_id) > 0){
 				
 				//Get data product
 				$product = wc_get_product($id);
 				if($product != NULL && count($product) > 0){
-					
 					
 					$gia_san_pham = $product->price;
 					$fb_tieu_de = get_field('fb_tieu_de', $product->id);
@@ -28,6 +29,12 @@ function repoPostToFacebook($id){
 					$fb_thong_tin_bao_hanh = get_field('fb_thong_tin_bao_hanh', $product->id);
 					$fb_thong_tin_lien_he = get_field('fb_thong_tin_lien_he', $product->id);
 					$fb_thong_tin_lien_ket = get_field('fb_thong_tin_lien_ket', $product->id);
+					
+					//Get images
+					$attachment_ids = $product->get_gallery_attachment_ids();
+					foreach( array_slice( $attachment_ids, 0,3 ) as $attachment_id ) {
+					  	$attachments[] = wp_get_attachment_image_src( $attachment_id, 'thumbnail' )[0];
+					}
 					
 					$main_content = "
 						$fb_tieu_de
@@ -37,13 +44,11 @@ function repoPostToFacebook($id){
 						$fb_thong_tin_lien_he
 						$fb_thong_tin_lien_ket
 					";
-					repoDebugVar($page_id);
-					repoDebugVar($token);
-					repoDebugVar($token_page);
-					repoDebugVar($main_content);
-					//$api = new fbapi();
-					//$attachments = [];
-					//$rs = $api->createPagePost($page_id, $main_content, $attachments, $token_page);
+					
+					$api = new fbapi();
+					foreach($arr_page_id as $page_id){
+						$rs = $api->createPagePost($page_id, $main_content, $attachments, $token_page);
+					}
 					
 				}
 				
