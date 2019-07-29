@@ -2,60 +2,102 @@
 defined( 'ABSPATH' ) || exit;
 if (is_admin()) return;
 
-function repoPostToFacebook($id){
+function repoPostToFacebook($id, $target = NULL){
 	
-	//Get account token
-	$args['post_type'] = 'token';
-	$args['meta_key'] = 'fb_trang_thai';
-	$args['meta_value'] = 0;
-	$the_query = new WP_Query( $args );
-	if ( $the_query->have_posts() ) {
-	    while ( $the_query->have_posts() ) {
-	    	$the_query->the_post();
-	        $page_ids = get_field('fb_danh_sach_page_ket_noi');
-	        $arr_page_id = explode("\r\n", trim($page_ids));
-			$token = get_field('fb_access_token');
-			$token_page = get_field('fb_access_token_truy_cap_page');
-			
-	        if($token != '' & $token_page != '' && count($arr_page_id) > 0){
+	if($target != NULL){
+		
+		//Get account token
+		$args['post_type'] = 'token';
+		$args['meta_key'] = 'fb_trang_thai';
+		$args['meta_value'] = 0;
+		$the_query = new WP_Query( $args );
+		if ( $the_query->have_posts() ) {
+		    while ( $the_query->have_posts() ) {
+		    	$the_query->the_post();
+		        $page_ids = get_field('fb_danh_sach_page_ket_noi');
+		        $arr_page_id = explode("\r\n", trim($page_ids));
+				$token = get_field('fb_access_token');
+				$token_page = get_field('fb_access_token_truy_cap_page');
 				
-				//Get data product
-				$product = wc_get_product($id);
-				if($product != NULL && count($product) > 0){
+		        if($token != '' & $token_page != '' && count($arr_page_id) > 0){
 					
-					$gia_san_pham = $product->price;
-					$fb_tieu_de = get_field('fb_tieu_de', $product->id);
-					$fb_noi_dung_san_pham = get_field('fb_noi_dung_san_pham', $product->id);
-					$fb_thong_tin_bao_hanh = get_field('fb_thong_tin_bao_hanh', $product->id);
-					$fb_thong_tin_lien_he = get_field('fb_thong_tin_lien_he', $product->id);
-					$fb_thong_tin_lien_ket = get_field('fb_thong_tin_lien_ket', $product->id);
-					
-					//Get images
-					$attachment_ids = $product->get_gallery_attachment_ids();
-					foreach( array_slice( $attachment_ids, 0,3 ) as $attachment_id ) {
-					  	$attachments[] = wp_get_attachment_image_src( $attachment_id, 'thumbnail' )[0];
-					}
-					
-					$main_content = "
-						$fb_tieu_de
-						$fb_noi_dung_san_pham
-						$fb_thong_tin_bao_hanh
-						Giá bán : $gia_san_pham
-						$fb_thong_tin_lien_he
-						$fb_thong_tin_lien_ket
-					";
-					
-					$api = new fbapi();
-					foreach($arr_page_id as $page_id){
-						$rs = $api->createPagePost($page_id, $main_content, $attachments, $token_page);
+					//Get data product
+					$product = wc_get_product($id);
+					if($product != NULL && count($product) > 0){
+						
+						$gia_san_pham = $product->price;
+						$gia_san_pham_ctv = get_post_meta($product->id, 'ctv_price', true );
+						
+						//Get images
+						$attachment_ids = $product->get_gallery_attachment_ids();
+						foreach( array_slice( $attachment_ids, 0,3 ) as $attachment_id ) {
+						  	$attachments[] = wp_get_attachment_image_src( $attachment_id, 'thumbnail' )[0];
+						}
+						
+						$api = new fbapi();
+						
+						switch ($target) {
+						    case "to_profile":
+						        $fb_tieu_de = get_field('fb_profile_tieu_de', $product->id);
+								$fb_noi_dung_san_pham = get_field('fb_profile_noi_dung_san_pham', $product->id);
+								$fb_thong_tin_bao_hanh = get_field('fb_profile_thong_tin_bao_hanh', $product->id);
+								$fb_thong_tin_lien_he = get_field('fb_profile_thong_tin_lien_he', $product->id);
+								$fb_thong_tin_lien_ket = get_field('fb_profile_thong_tin_lien_ket', $product->id);
+								$main_profile_content = "
+									$fb_tieu_de
+									$fb_noi_dung_san_pham
+									$fb_thong_tin_bao_hanh
+									Giá bán : $gia_san_pham
+									$fb_thong_tin_lien_he
+									$fb_thong_tin_lien_ket
+								";
+						        break;
+						    case "to_group":
+						    	$fb_tieu_de = get_field('fb_group_tieu_de', $product->id);
+								$fb_noi_dung_san_pham = get_field('fb_group_noi_dung_san_pham', $product->id);
+								$fb_thong_tin_bao_hanh = get_field('fb_group_thong_tin_bao_hanh', $product->id);
+								$fb_thong_tin_lien_he = get_field('fb_group_thong_tin_lien_he', $product->id);
+								$fb_thong_tin_lien_ket = get_field('fb_group_thong_tin_lien_ket', $product->id);
+						        $main_group_content = "
+									$fb_tieu_de
+									$fb_noi_dung_san_pham
+									$fb_thong_tin_bao_hanh
+									Giá bán : $gia_san_pham_ctv
+									$fb_thong_tin_lien_he
+									$fb_thong_tin_lien_ket
+								";
+						        break;
+						    case "to_page":
+						    	$fb_tieu_de = get_field('fb_page_tieu_de', $product->id);
+								$fb_noi_dung_san_pham = get_field('fb_page_noi_dung_san_pham', $product->id);
+								$fb_thong_tin_bao_hanh = get_field('fb_page_thong_tin_bao_hanh', $product->id);
+								$fb_thong_tin_lien_he = get_field('fb_page_thong_tin_lien_he', $product->id);
+								$fb_thong_tin_lien_ket = get_field('fb_page_thong_tin_lien_ket', $product->id);
+						        $main_page_content = "
+									$fb_tieu_de
+									$fb_noi_dung_san_pham
+									$fb_thong_tin_bao_hanh
+									Giá bán : $gia_san_pham
+									$fb_thong_tin_lien_he
+									$fb_thong_tin_lien_ket
+								";
+								foreach($arr_page_id as $page_id){
+									$rs = $api->createPagePost($page_id, $main_page_content, $attachments, $token_page);
+								}
+						        break;
+						    default:
+						        //Do somethings.
+						}	
+						
 					}
 					
 				}
-				
-			}
-	    }
+		    }
+		}
+		wp_reset_postdata();
+		
 	}
-	wp_reset_postdata();
+	
 }
 
 function repoExecuteAutoPost()
