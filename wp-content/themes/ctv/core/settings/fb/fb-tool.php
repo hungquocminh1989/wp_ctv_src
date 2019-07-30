@@ -1,6 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-if (is_admin()) return;
+//if (is_admin()) return;
 
 function repoPostToFacebook($id, $target = NULL){
 	
@@ -14,7 +14,9 @@ function repoPostToFacebook($id, $target = NULL){
 		if ( $the_query->have_posts() ) {
 		    while ( $the_query->have_posts() ) {
 		    	$the_query->the_post();
-		        $page_ids = get_field('fb_danh_sach_page_ket_noi');
+		        $page_ids = get_field('fb_danh_sach_page');
+		        $group_ids = get_field('fb_danh_sach_group');
+		        $arr_group_id = explode("\r\n", trim($group_ids));
 		        $arr_page_id = explode("\r\n", trim($page_ids));
 				$token = get_field('fb_access_token');
 				$token_page = get_field('fb_access_token_truy_cap_page');
@@ -66,6 +68,11 @@ function repoPostToFacebook($id, $target = NULL){
 									$fb_thong_tin_lien_he
 									$fb_thong_tin_lien_ket
 								";
+								if(count($arr_group_id)>0){
+									foreach($arr_group_id as $group_id){
+										//
+									}
+								}
 						        break;
 						    case "to_page":
 						    	$fb_tieu_de = get_field('fb_page_tieu_de', $product->id);
@@ -81,8 +88,10 @@ function repoPostToFacebook($id, $target = NULL){
 									$fb_thong_tin_lien_he
 									$fb_thong_tin_lien_ket
 								";
-								foreach($arr_page_id as $page_id){
-									$rs = $api->createPagePost($page_id, $main_page_content, $attachments, $token_page);
+								if(count($arr_page_id)>0){
+									foreach($arr_page_id as $page_id){
+										$rs = $api->createPagePost($page_id, $main_page_content, $attachments, $token_page);
+									}
 								}
 						        break;
 						    default:

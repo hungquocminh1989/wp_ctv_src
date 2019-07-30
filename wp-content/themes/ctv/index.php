@@ -1,6 +1,6 @@
 <?php 
 
-repoPostToFacebook(360);
+repoPostToFacebook(360, 'to_page');
 die();
 echo 111;
 
