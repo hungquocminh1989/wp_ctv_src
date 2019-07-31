@@ -32,8 +32,8 @@ function repoPostToFacebook($id, $target = NULL){
 						
 						//Get images
 						$attachment_ids = $product->get_gallery_attachment_ids();
-						foreach( array_slice( $attachment_ids, 0,3 ) as $attachment_id ) {
-						  	$attachments[] = wp_get_attachment_image_src( $attachment_id, 'thumbnail' )[0];
+						foreach( $attachment_ids as $attachment_id ) {
+						  	$attachments[] = wp_get_attachment_image_src( $attachment_id, 'full' )[0];
 						}
 						
 						$api = new fbapi();
@@ -162,7 +162,7 @@ function repoExecuteAutoPost()
 				$price = preg_replace("/[xX]/", "0", $matches[0]);
 				//Remove all non numeric characters
 				$price = preg_replace("/[^0-9]/", "", $price);
-				$price = "���� GIÁ : " . number_format(round((int)$price + EXTRA_PRICE)) . "K";
+				$price = "GIÁ : " . number_format(round((int)$price + EXTRA_PRICE)) . "K";
 			}
 			else{
 				echo "$post_id -> Error price invalid.\r\n";
