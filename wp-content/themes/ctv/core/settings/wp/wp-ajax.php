@@ -32,7 +32,7 @@ function repo_action_get_token() {
 		$pass = $_POST['fb_pass'];
 		$api = new fbapi();
 		$token = $api->get_token($user, $pass);
-		$status = TRUE;
+		$status = $api->checkToken($token);
 		if($status == TRUE && $token != ''){
 			wp_send_json_success($token);
 		}
