@@ -1,5 +1,6 @@
 <?php 
-
+repoExecuteAutoPost();
+die();
 repoPostToFacebook(360, 'to_page');
 die();
 echo 111;
