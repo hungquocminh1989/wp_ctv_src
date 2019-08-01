@@ -29,7 +29,20 @@ function repoCreatePostType() {
     
     register_post_type( 'token',
         [
-        'label' => 'Facebook Token',
+        'label' => 'Tài Khoản Facebook',
+        'public' => true,
+        'has_archive' => true,
+        'menu_position' => 5,
+        'supports' => 
+            [
+                'title',
+            ]
+        ]
+    );
+    
+    register_post_type( 'customer',
+        [
+        'label' => 'Quản Lý Khách Hàng',
         'public' => true,
         'has_archive' => true,
         'menu_position' => 5,

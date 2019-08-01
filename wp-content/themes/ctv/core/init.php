@@ -37,7 +37,7 @@ locate_template('/core/settings/wp/wp-front-script.php', TRUE);
 
 /*
 |--------------------------------------------------------------------------
-| LOAD SETTINGS
+| LOAD WORDPRESS SETTINGS
 |-------------------------------------------------------------------------- 
 */
 locate_template('/core/settings/wp/wp-create-table.php', TRUE);
@@ -71,7 +71,9 @@ locate_template('/core/settings/wc/wc-admin-product-option.php', TRUE);
 | LOAD ADVANCED CUSTOM FIELDS SETTINGS
 |-------------------------------------------------------------------------- 
 */
-locate_template('/core/settings/acf/acf-generate.php', TRUE);
+locate_template('/core/settings/acf/acf-product-generate.php', TRUE);
+locate_template('/core/settings/acf/acf-token-generate.php', TRUE);
+locate_template('/core/settings/acf/acf-customer-generate.php', TRUE);
 locate_template('/core/settings/acf/acf-function.php', TRUE);
 locate_template('/core/settings/acf/acf-hook.php', TRUE);
 
